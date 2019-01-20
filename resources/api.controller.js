@@ -1,25 +1,18 @@
-'use strict'
-
-const STATUS_CODES = {
-  OK: 200,
-  BAD_REQUEST: 400
-};
-
 module.exports = {
   getTodos(req, res) {
-    send(res, STATUS_CODES.OK, '`getTotos` should return todo list from DB', false);
+    res.status(200).send("get todos from DB");
   },
-  postTodo(req, res) {
-    send(res, STATUS_CODES.OK, '`postTodo` should create a new todo to DB', false);
+  postTodos(req, res) {
+    res.status(200).send("create todo to DB");
   },
-  putTodo(req, res) {
-    send(res, STATUS_CODES.OK, '`putTodo` should update a todo in DB', false);
+  putTodos(req, res) {
+    const id = req.params.id;
+    const data = "update todo of id " + id + " in DB";
+    res.status(200).send(data);
   },
-  deleteTodo(req, res) {
-    send(res, STATUS_CODES.OK, '`deleteTodo` should delete a todo from DB', false);
+  deleteTodos(req, res) {
+    const id = req.params.id;
+    const data = "delete todo of id " + id + " from DB";
+    res.status(200).send(data);
   }
-}
-
-const send = (res, code, data, json = true) => {
-  res.status(code).send(json ? JSON.stringify(data) : data);
-}; 
+};

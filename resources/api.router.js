@@ -1,12 +1,12 @@
-'use strict'
+const express = require("express");
+const router = express.Router();
+const apiController = require("./api.controller");
 
-const router = require('express').Router();
-const controller = require('./api.controller');
-
-router.route('/todos')
-  .get(controller.getTodos)
-  .post(controller.postTodo)
-  .put(controller.putTodo)
-  .delete(controller.deleteTodo);
+router.route("/todos")
+  .get(apiController.getTodos)
+  .post(apiController.postTodos);
+router.route("/todos/:id")
+  .put(apiController.putTodos)
+  .delete(apiController.deleteTodos);
 
 module.exports = router;
