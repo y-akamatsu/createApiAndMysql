@@ -48,9 +48,4 @@ describe('DELETE /api', () => {
     return testDelete('/todos/api', 200);
   });
 });
-
-describe('GET /aaa', () => {
-  it('', () => {
-    return RequestApiTest('/aaa', 404);
-  });
-});
+;
