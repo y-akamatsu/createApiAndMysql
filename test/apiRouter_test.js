@@ -26,51 +26,51 @@ function testDelete(url, statusCode) {
 }
 
 //正常系テストの実装
-describe('GET /api', () => {
+describe('GET /api/todos', () => {
   it('GETメソッドの確認', () => {
     return testGet('/api/todos', 200);
   });
 });
 
-describe('POST /api', () => {
+describe('POST /api/todos', () => {
   it('POSTメソッドの確認', () => {
     return testPost('/api/todos', 200);
   });
 });
 
-describe('PUT /api', () => {
+describe('PUT /api/todos/1', () => {
   it('PUTメソッドの確認', () => {
     return testPut('/api/todos/1', 200);
   });
 });
 
-describe('DELET /api', () => {
+describe('DELET /api/todos/1', () => {
   it('DELETEメソッドの確認', () => {
-    return testPut('/todos/api/1', 200);
+    return testDelete('/api/todos/1', 200);
   });
 });
 
 //異常系テストの実装
-describe('GET /api', () => {
+describe('GET /api/aaaa', () => {
   it('ステータスコード404になる', () => {
-    return testGet('/todos/api', 404);
+    return testGet('/api/aaaa', 404);
   });
 });
 
-describe('POST /api', () => {
+describe('POST /api/todos', () => {
   it('ステータスコード404になる', () => {
-    return testPost('/todos/api', 404);
+    return testPost('/api/aaaa', 404);
   });
 });
 
-describe('PUT /api', () => {
+describe('PUT /api/todos/1', () => {
   it('ステータスコード404になる', () => {
-    return testPut('/todos/api/1', 404);
+    return testPut('/api/aaaa/1', 404);
   });
 });
 
-describe('DELETE /api', () => {
+describe('DELETE /api/todos/1', () => {
   it('ステータスコード404になる', () => {
-    return testDelete('/todos/api/1', 404);
+    return testDelete('/api/aaaa/1', 404);
   });
 });
