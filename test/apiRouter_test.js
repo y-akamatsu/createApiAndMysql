@@ -57,13 +57,13 @@ describe('GET /api/aaaa', () => {
   });
 });
 
-describe('POST /api/todos', () => {
+describe('POST /api/aaaa', () => {
   it('ステータスコード404になる', () => {
     return testPost('/api/aaaa', 404);
   });
 });
 
-describe('PUT /api/todos/1', () => {
+describe('PUT /api/aaaa/1', () => {
   it('ステータスコード404になる', () => {
     return testPut('/api/aaaa/1', 404);
   });
