@@ -1,7 +1,19 @@
+'use strict'
+
+const Todo = require('../models/index').Todo;
+
 module.exports = {
-  getTodos(req, res) {
-    res.status(200).send("get todos from DB");
+  async getTodos(req, res) {
+  try {
+      const todos = await Todo.findAll({
+        order: [["id", "ASC"]]
+      });
+      res.status(200).json(todos);
+    } catch (error) {
+      res.json(error);
+    }
   },
+
   postTodos(req, res) {
     res.status(200).send("create todo to DB");
   },
@@ -15,4 +27,8 @@ module.exports = {
     const data = "delete todo of id " + id + " from DB";
     res.status(200).send(data);
   }
+};
+
+const send = (res, code, data, json = true) => {
+  res.status(code).send(json ? JSON.stringify(data) : data);
 };
