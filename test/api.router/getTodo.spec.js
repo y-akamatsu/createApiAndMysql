@@ -12,7 +12,8 @@ describe('GET /api/todos', () => {
           assert.equal(todo.id, index + 1, 'idが正しくありません');
           assert.equal(typeof todo.title, 'string', 'titleの型が間違っています。');
           assert.equal(typeof todo.body, 'string', 'bodyの型が間違っています。');
-          assert.equal(todo.completed, false, 'completedの型が間違っています。');
+          assert.equal(typeof todo.completed, 'boolean', 'completedの値が間違っています。');
+          assert.equal(todo.completed, false, 'completedの値はtrueではありません。');
           assert.equal(typeof todo.createdAt, 'string', 'createdAtの型が間違っています。');
           assert.equal(typeof todo.updatedAt, 'string', 'updatedAtの型が間違っています。');
         });
