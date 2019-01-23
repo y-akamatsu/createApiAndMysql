@@ -74,3 +74,5 @@ describe('DELETE /api/todos/1', () => {
     return testDelete('/api/aaaa/1', 404);
   });
 });
+
+module.exports = testGet; 

@@ -4,7 +4,7 @@ const Todo = require('../models/index').Todo;
 
 module.exports = {
   async getTodos(req, res) {
-  try {
+    try {
       const todos = await Todo.findAll({
         order: [["id", "ASC"]]
       });
