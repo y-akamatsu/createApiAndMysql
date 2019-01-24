@@ -1,4 +1,4 @@
-const app = require('./server.js');
+const app = require('./server');
 const chalk = require('chalk');
 const PORT = 3000;
 const url = `http://localhost:${PORT}/api/todos`;
