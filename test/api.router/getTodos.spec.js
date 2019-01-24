@@ -2,7 +2,7 @@ const assert = require('power-assert');
 const requestHelper = require('../requestHelper');
 
 describe('GET /api/todos', () => {
-  it('APIで取得した値の型の確認', () => {
+  it('APIで取得した値の確認', () => {
     return requestHelper.requestAPI('get', '/api/todos', 200)
       .set('Accept', 'application/json')
       .then(response => {

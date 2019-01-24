@@ -28,7 +28,3 @@ module.exports = {
     res.status(200).send(data);
   }
 };
-
-const send = (res, code, data, json = true) => {
-  res.status(code).send(json ? JSON.stringify(data) : data);
-};
