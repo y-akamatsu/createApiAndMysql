@@ -1,8 +1,8 @@
-const app = require('./server.js');
+const app = require('./server');
 const chalk = require('chalk');
 const PORT = 3000;
+const url = `http://localhost:${PORT}/api/todos`;
 
-app.listen(PORT, () => console.log(
-  chalk.yellow.bold('Server has started!')
-  + chalk.cyan.bold(`localhost:${PORT}`)
-));
+app.listen(PORT, () => {
+  console.log(chalk.black.yellow(url));
+});	
