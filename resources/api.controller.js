@@ -1,11 +1,11 @@
 'use strict'
 
-const Todo = require('../models/index').Todo;
+const index = require('../models/index');
 
 module.exports = {
   async getTodos(req, res) {
     try {
-      const todos = await Todo.findAll({
+      const todos = await index.TodofindAll({
         order: [["id", "ASC"]]
       });
       res.status(200).json(todos);
@@ -14,17 +14,21 @@ module.exports = {
     }
   },
 
-  async postTodo(req, res) {
+  async postTodos(req, res) {
     let transaction;
     try {
-      transaction = await models.sequelize.transaction();
-      const todo = await models.Todo.create({
-        title: req.body.title,
-        body: req.body.body
-      }, { transaction });
+      transaction = await index.Todo.sequelize.transaction();
 
+      const todo = await index.Todo.create(
+        {
+          title: req.body.title,
+          body: req.body.body,
+          completed: req.body.completed
+        },
+        { transaction }
+      );
       await transaction.commit();
-      send(res, STATUS_CODES.OK, formatResponseData({ todo }), false);
+      res.status(200).json(todo);
     } catch (error) {
       await transaction.rollback();
       res.json(error);
