@@ -14,9 +14,23 @@ module.exports = {
     }
   },
 
-  postTodos(req, res) {
-    res.status(200).send("create todo to DB");
+  async postTodo(req, res) {
+    let transaction;
+    try {
+      transaction = await models.sequelize.transaction();
+      const todo = await models.Todo.create({
+        title: req.body.title,
+        body: req.body.body
+      }, { transaction });
+
+      await transaction.commit();
+      send(res, STATUS_CODES.OK, formatResponseData({ todo }), false);
+    } catch (error) {
+      await transaction.rollback();
+      res.json(error);
+    }
   },
+
   putTodos(req, res) {
     const id = req.params.id;
     const data = "update todo of id " + id + " in DB";
