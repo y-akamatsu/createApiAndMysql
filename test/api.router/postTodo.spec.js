@@ -1,6 +1,6 @@
 const assert = require("power-assert");
 const requestHelper = require("../requestHelper");
-const truncate = require("../../truncate");
+const truncate = require("../truncate");
 let id;
 //正常系のテスト
 describe("POST /api/todos", () => {
