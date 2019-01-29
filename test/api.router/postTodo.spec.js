@@ -28,7 +28,7 @@ describe("POST /api/todos", () => {
   });
 
   //異常系のテスト
-  it("作成したデータの確認(異常系)", () => {
+  it("作成したデータの確認", () => {
     return requestHelper
       .requestAPI("post", "/api/todos", 200)
       .set("Accept", "application/json")
