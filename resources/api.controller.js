@@ -5,7 +5,7 @@ const index = require('../models/index');
 module.exports = {
   async getTodos(req, res) {
     try {
-      const todos = await index.TodofindAll({
+      const todos = await index.Todo.findAll({
         order: [["id", "ASC"]]
       });
       res.status(200).json(todos);
@@ -17,7 +17,7 @@ module.exports = {
   async postTodos(req, res) {
     let transaction;
     try {
-      transaction = await index.Todo.sequelize.transaction();
+      transaction = await index.sequelize.transaction();
 
       const todo = await index.Todo.create(
         {
@@ -35,7 +35,7 @@ module.exports = {
     }
   },
 
-  async getTodoId(req, res){
+  async getTodoById(req, res){
     const selectId = req.paramas.id;
     try {
       const todo = await index.Todo.findById(Number(selectId));

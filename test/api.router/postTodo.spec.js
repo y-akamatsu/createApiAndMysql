@@ -8,7 +8,7 @@ describe("POST /api/todos", () => {
     return requestHelper
       .requestAPI("post", "/api/todos", 200)
       .set("Accept", "application/json")
-      .send({ title: "dummy_title", body: "dummy_body", completed: false })
+      .send({ title:"titleA", body:"bodyA", completed:false })
       .then(response => {
         //データの型のテスト
         //assert.equal(実際値, 期待値, エラー文);
@@ -21,8 +21,8 @@ describe("POST /api/todos", () => {
         //データの値のテスト
         id = response.body.id;
         assert.equal(response.body.id, id, "idの値が正しくありません。");
-        assert.equal(response.body.title, "dummy_title", "titleの値が正しくありません。");
-        assert.equal(response.body.body, "dummy_body", "bodyの値が正しくありません。");
+        assert.equal(response.body.title, "titleA", "titleの値が正しくありません。");
+        assert.equal(response.body.body, "bodyA", "bodyの値が正しくありません。");
         assert.equal(response.body.completed, false, "completedの値が正しくありません。");
       });
   });
@@ -49,8 +49,8 @@ describe("GET /api/todos/1", () => {
       .set("Accept", "application/json")
       .then(response => {
         // DBの各カラムの値チェック
-        assert.equal(response.body.title, "dummy_title", "titleの値が正しくありません。");
-        assert.equal(response.body.body, "dummy_body", "bodyの値が正しくありません。");
+        assert.equal(response.body.title, "titleA", "titleの値が正しくありません。");
+        assert.equal(response.body.body, "bodyA", "bodyの値が正しくありません。");
         assert.equal(response.body.completed, false, "completedの値が正しくありません。");
       });
   });
