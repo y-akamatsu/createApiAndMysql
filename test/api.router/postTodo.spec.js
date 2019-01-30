@@ -26,7 +26,6 @@ describe("POST /api/todos", () => {
         assert.equal(response.body.completed, false, "completedの値が正しくありません。");
       });
   });
-
   //異常系のテスト
   it("作成したデータの確認", () => {
     return requestHelper

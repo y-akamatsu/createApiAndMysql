@@ -8,12 +8,12 @@ module.exports = {
       const todos = await index.Todo.findAll({
         order: [["id", "ASC"]]
       });
+      console.log(req.body, "aaa");
       res.status(200).json(todos);
     } catch (error) {
       res.json(error);
     }
   },
-
   async postTodos(req, res) {
     let transaction;
     try {
