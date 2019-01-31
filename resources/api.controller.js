@@ -26,8 +26,8 @@ module.exports = {
         },
         { transaction },
       );
-      console.log(req.body, '@@@@@@@@');
       await transaction.commit();
+      console.log(req.body, '@@@@@@@@');
       res.status(200).json(todo);
     } catch (error) {
       await transaction.rollback();
