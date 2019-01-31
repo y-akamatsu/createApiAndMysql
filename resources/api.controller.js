@@ -8,7 +8,6 @@ module.exports = {
       const todos = await index.Todo.findAll({
         order: [["id", "ASC"]]
       });
-      console.log(req.body, "aaa");
       res.status(200).json(todos);
     } catch (error) {
       res.json(error);
@@ -25,8 +24,9 @@ module.exports = {
           body: req.body.body,
           completed: req.body.completed
         },
-        { transaction }
+        { transaction },
       );
+      console.log(req.body, '@@@@@@@@');
       await transaction.commit();
       res.status(200).json(todo);
     } catch (error) {
@@ -35,7 +35,7 @@ module.exports = {
     }
   },
 
-  async getTodoById(req, res){
+  async getTodoById(req, res) {
     const selectId = req.paramas.id;
     try {
       const todo = await index.Todo.findById(Number(selectId));

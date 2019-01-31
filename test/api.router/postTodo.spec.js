@@ -8,7 +8,7 @@ describe("POST /api/todos", () => {
     return requestHelper
       .requestAPI("post", "/api/todos", 200)
       .set("Accept", "application/json")
-      .send({ title:"titleA", body:"bodyA", completed:false })
+      .send(JSON.stringify({ title: "titleA", body: "bodyA", completed: false }))
       .then(response => {
         //データの型のテスト
         //assert.equal(実際値, 期待値, エラー文);
