@@ -26,7 +26,6 @@ describe("GET /api/todos", () => {
         assert.equal(Array.isArray(todos), true, "配列ではありません。");
         todos.forEach((todo, index) => {
           assert.equal(typeof todo.id, "number", "idは'number'型ではありません。");
-          console.log(todo.title);
           assert.equal(typeof todo.title, "string", "titleは'string'型ではありません。");
           assert.equal(typeof todo.body, "string", "bodyは'string'型ではありません。");
           assert.equal(typeof todo.completed, "boolean", "completedは'boolean'型ではありません。");

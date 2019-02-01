@@ -2,6 +2,7 @@ const assert = require("power-assert");
 const requestHelper = require("../requestHelper");
 const truncate = require("../truncate");
 let id;
+
 //正常系のテスト
 describe("POST /api/todos", () => {
   it("テストコードで作成した値の確認", () => {
@@ -32,7 +33,7 @@ describe("POST /api/todos", () => {
       .requestAPI("post", "/api/todos", 200)
       .set("Accept", "application/json")
       .then(response => {
-        assert.equal(response.body.name, "SequelizeDatabaseError", "データの作成に成功しています。");
+        assert.equal(response.body.name, undefined, "データの作成に成功しています。");
       });
   });
 });

@@ -27,7 +27,6 @@ module.exports = {
         { transaction },
       );
       await transaction.commit();
-      console.log(req.body, '@@@@@@@@');
       res.status(200).json(todo);
     } catch (error) {
       await transaction.rollback();
@@ -36,7 +35,7 @@ module.exports = {
   },
 
   async getTodoById(req, res) {
-    const selectId = req.paramas.id;
+    const selectId = req.params.id;
     try {
       const todo = await index.Todo.findById(Number(selectId));
       res.status(200).json(todo);

@@ -3,7 +3,7 @@ const router = express.Router();
 const apiController = require("./api.controller");
 
 router.route("/todos")
-  .get(apiController.postTodos)
+  .get(apiController.getTodos)
   .post(apiController.postTodos)
 router.route("/todos/:id")
   .get(apiController.getTodoById)
