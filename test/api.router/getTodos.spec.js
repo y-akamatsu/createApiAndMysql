@@ -1,21 +1,7 @@
 const assert = require("power-assert");
 const requestHelper = require("../requestHelper");
-const todoFactory = require("../factories/todo");
-const truncate = require("../truncate");
 
 describe("GET /api/todos", () => {
-  before(async () => {
-    const promises = [];
-    for (let i = 0; i < 5; i++) {
-      promises.push(todoFactory());
-    }
-    await Promise.all(promises);
-  });
-
-  after(async () => {
-    await truncate();
-  });
-
   it("API経由で取得したデータの確認", () => {
     return requestHelper
       .requestAPI("get", "/api/todos", 200)
