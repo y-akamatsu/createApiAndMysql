@@ -8,7 +8,6 @@ describe("GET /api/todos", () => {
       .set("Accept", "application/json")
       .then(response => {
         const todos = response.body;
-
         assert.equal(Array.isArray(todos), true, "配列ではありません。");
         todos.forEach((todo, index) => {
           assert.equal(typeof todo.id, "number", "idは'number'型ではありません。");

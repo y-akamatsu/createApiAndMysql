@@ -9,19 +9,16 @@ module.exports = {
         type: Sequelize.INTEGER.UNSIGNED
       },
       title: {
-        type: Sequelize.STRING,
-        allowNull: false
-
+        allowNull: false,
+        type: Sequelize.STRING
       },
       body: {
-        type: Sequelize.TEXT,
-        allowNull: false
-
+        allowNull: false,
+        type: Sequelize.TEXT
       },
       completed: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false
-
+        allowNull: false,
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,

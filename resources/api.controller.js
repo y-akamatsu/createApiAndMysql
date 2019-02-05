@@ -13,25 +13,8 @@ module.exports = {
       res.json(error);
     }
   },
-  async postTodos(req, res) {
-    let transaction;
-    try {
-      transaction = await index.sequelize.transaction();
-
-      const todo = await index.Todo.create(
-        {
-          title: req.body.title,
-          body: req.body.body,
-          completed: req.body.completed
-        },
-        { transaction },
-      );
-      await transaction.commit();
-      res.status(200).json(todo);
-    } catch (error) {
-      await transaction.rollback();
-      res.json(error);
-    }
+  postTodos(req, res) {
+    res.status(200).send("create todo to DB");
   },
 
   async getTodoById(req, res) {
