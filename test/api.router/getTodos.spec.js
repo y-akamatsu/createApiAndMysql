@@ -7,6 +7,7 @@ describe("GET /api/todos", () => {
       .requestAPI("get", "/api/todos", 200)
       .set("Accept", "application/json")
       .then(response => {
+        console.log(response.body, '@@@@@');
         const todos = response.body;
         assert.equal(Array.isArray(todos), true, "配列ではありません。");
         todos.forEach((todo, index) => {
