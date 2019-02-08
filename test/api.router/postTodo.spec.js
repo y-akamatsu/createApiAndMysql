@@ -7,7 +7,7 @@ describe("POST /api/todos", () => {
   it("テストコードで作成した値の確認", () => {
     return requestHelper
       .requestAPI("post", "/api/todos", 200)
-      .set("Accept", "application/json")
+      .set("Content-type", "application/json")
       .send(JSON.stringify({title: "titleA", body: "bodyA", completed: false }))
       .then(response => {
         //データの型のテスト
@@ -28,17 +28,16 @@ describe("POST /api/todos", () => {
   });
 });
 
-
-// describe("GET /api/todos/1", () => {
-//   it("作成したデータをDBから取得できるかの確認", () => {
-//     return requestHelper
-//       .requestAPI("get", "/api/todos/" + id, 200)
-//       .set("Accept", "application/json")
-//       .then(response => {
-//         // DBの各カラムの値チェック
-//         assert.equal(response.body.title, "titleA", "titleの値が正しくありません。");
-//         assert.equal(response.body.body, "bodyA", "bodyの値が正しくありません。");
-//         assert.equal(response.body.completed, false, "completedの値が正しくありません。");
-//       });
-//   });
-// });
+describe("GET /api/todos/1", () => {
+  it("作成したデータをDBから取得できるかの確認", () => {
+    return requestHelper
+      .requestAPI("get", "/api/todos/" + id, 200)
+      .set("Content-type", "application/json")
+      .then(response => {
+        // DBの各カラムの値チェック
+        assert.equal(response.body.title, "titleA", "titleの値が正しくありません。");
+        assert.equal(response.body.body, "bodyA", "bodyの値が正しくありません。");
+        assert.equal(response.body.completed, false, "completedの値が正しくありません。");
+      });
+  });
+});
