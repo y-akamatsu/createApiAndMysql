@@ -1,13 +1,21 @@
 const assert = require("power-assert");
 const requestHelper = require("../requestHelper");
+const todoFactory = require("../factories/todo");
+
 
 describe("GET /api/todos", () => {
+  before(async () => {
+    const promises = [];
+    for (let i = 0; i < 5; i++) {
+      promises.push(todoFactory());
+    }
+    await Promise.all(promises);
+  });
   it("API経由で取得したデータの確認", () => {
     return requestHelper
       .requestAPI("get", "/api/todos", 200)
       .set("Accept", "application/json")
       .then(response => {
-        console.log(response.body, '@@@@@');
         const todos = response.body;
         assert.equal(Array.isArray(todos), true, "配列ではありません。");
         todos.forEach((todo, index) => {
