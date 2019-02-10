@@ -4,13 +4,13 @@ const todoFactory = require("../factories/todo");
 
 
 describe("GET /api/todos", () => {
-  before(async () => {
-    const promises = [];
-    for (let i = 0; i < 5; i++) {
-      promises.push(todoFactory());
-    }
-    await Promise.all(promises);
-  });
+  // before(async () => {
+  //   const promises = [];
+  //   for (let i = 0; i < 5; i++) {
+  //     promises.push(todoFactory());
+  //   }
+  //   await Promise.all(promises);
+  // });
   it("API経由で取得したデータの確認", () => {
     return requestHelper
       .requestAPI("get", "/api/todos", 200)
