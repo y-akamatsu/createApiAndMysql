@@ -1,5 +1,6 @@
 const assert = require("power-assert");
 const requestHelper = require("../requestHelper");
+const truncate = require("../truncate");
 let id;
 
 //正常系のテスト
@@ -13,9 +14,9 @@ describe("POST /api/todos", () => {
         //データの型のテスト
         //assert.equal(実際値, 期待値, エラー文);
         assert.equal(typeof response.body.id, "number", "idの型が正しくありません。");
-        assert.equal(typeof response.body.title, "string", "titleの型が正しくありません。");
-        assert.equal(typeof response.body.body, "string", "bodyの型が正しくありません。");
-        assert.equal(response.body.completed, 0, "completedの型が正しくありません。");
+        assert.equal(response.body.title, "titleA", "titleの型が正しくありません。");
+        assert.equal(response.body.body, "bodyA", "bodyの型が正しくありません。");
+        assert.equal(response.body.completed, false, "completedの型が正しくありません。");
         assert.equal(typeof response.body.createdAt, "string", "createdAtの型が正しくありません。");
         assert.equal(typeof response.body.updatedAt, "string", "updatedAtの型が正しくありません。");
         //データの値のテスト
@@ -28,7 +29,7 @@ describe("POST /api/todos", () => {
   });
 });
 
-describe("GET /api/todos/1", () => {
+describe("POST /api/todos/1", () => {
   it("作成したデータをDBから取得できるかの確認", () => {
     return requestHelper
       .requestAPI("get", "/api/todos/" + id, 200)
@@ -39,5 +40,9 @@ describe("GET /api/todos/1", () => {
         assert.equal(response.body.body, "bodyA", "bodyの値が正しくありません。");
         assert.equal(response.body.completed, false, "completedの値が正しくありません。");
       });
+  });
+
+  after(async () => {
+    await truncate();
   });
 });
