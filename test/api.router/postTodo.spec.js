@@ -16,6 +16,7 @@ describe("POST /api/todos", () => {
         assert.equal(response.body.completed, false, "completedの値が正しくありません。");
         assert.equal(typeof response.body.createdAt, "string", "createdAtの型が正しくありません。");
         assert.equal(typeof response.body.updatedAt, "string", "updatedAtの型が正しくありません。");
+        id = response.body.id;
       });
   });
 });
