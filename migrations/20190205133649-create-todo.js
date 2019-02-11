@@ -9,12 +9,15 @@ module.exports = {
         type: Sequelize.INTEGER.UNSIGNED
       },
       title: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       body: {
+        allowNull: false,
         type: Sequelize.TEXT
       },
       completed: {
+        allowNull: false,
         type: Sequelize.BOOLEAN
       },
       createdAt: {
