@@ -56,17 +56,18 @@ module.exports = {
       });
 
       if (!todo) {
-        const error = new Erroro();
-        error.message = 'Not Found';
-        error.code = '404';
+        const error = new Error();
+        error.message = "Not Found";
+        error.code = "404";
         throw error;
       }
 
       todo.update({
-        title: req.bpdy.title,
+        title: req.body.title,
         body: req.body.body,
         completed: req.body.completed
       });
+
       await transaction.commit();
       res.status(200).json(todo);
     } catch (error) {
