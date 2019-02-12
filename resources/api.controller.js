@@ -58,11 +58,11 @@ module.exports = {
       if (!todo) {
         const error = new Error();
         error.message = "Not Found";
-        error.code = "404";
+        error.code = 404;
         throw error;
       }
 
-      todo.update({
+      await todo.update({
         title: req.body.title,
         body: req.body.body,
         completed: req.body.completed

@@ -7,7 +7,6 @@ describe("POST /api/todos", () => {
   it("テストコードで作成した値の確認", () => {
     return requestHelper
       .requestAPI("post", "/api/todos", 200)
-      .set("Content-type", "application/json")
       .send(JSON.stringify({title: "titleA", body: "bodyA", completed: false }))
       .then(response => {
         assert.equal(typeof response.body.id, "number", "idの型が正しくありません。");

@@ -21,10 +21,8 @@ describe("PUT /api/todo/:id", () => {
   it("更新したデータの確認　正常のテスト", () => {
     return requestHelper
     .requestAPI("put", url, 200)
-    .set("Content-type", "application/json")
     .send(JSON.stringify({ title: "titleA", body: "bodyA", completed: true }))
     .then(response => {
-      console.log(response.body.title, 'aaaaaa');
       assert.equal(response.body.title, "titleA", "titleの値が正しくありません")
       assert.equal(response.body.body, "bodyA", "bodyの値が正しくありません")
       assert.equal(response.body.completed, true, "completedの値が正しくありません")
@@ -33,9 +31,9 @@ describe("PUT /api/todo/:id", () => {
 });
 
 describe("GET /api/todos/:id", () => {
-  // after(async () => {
-  //   await truncate();
-  // });
+  after(async () => {
+    await truncate();
+  });
 
   it("更新したデータをDBから取得できるかの確認", () => {
     return requestHelper
