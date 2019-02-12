@@ -45,10 +45,34 @@ module.exports = {
     }
   },
 
-  putTodos(req, res) {
-    const id = req.params.id;
-    const data = "update todo of id " + id + " in DB";
-    res.status(200).send(data);
+  async putTodos(req, res) {
+    const targetTodoId = req.params.id;
+    let transaction;
+    try {
+      transaction = await index.sequelize.transaction();
+
+      const todo = await index.Todo.findById(Number(targetTodoId), {
+        transaction
+      });
+
+      if (!todo) {
+        const error = new Erroro();
+        error.message = 'Not Found';
+        error.code = '404';
+        throw error;
+      }
+
+      todo.update({
+        title: req.bpdy.title,
+        body: req.body.body,
+        completed: req.body.completed
+      });
+      await transaction.commit();
+      res.status(200).json(todo);
+    } catch (error) {
+      await transaction.rollback();
+      res.status(404).json(error);
+    }
   },
   deleteTodos(req, res) {
     const id = req.params.id;
