@@ -6,6 +6,7 @@ module.exports = {
     const lowerMethod = method.toLowerCase();
     return request(app)
     [lowerMethod](url)
-    .expect(statusCode);
+    .expect(statusCode)
+    .set("Content-type", "application/json");
   }
 };

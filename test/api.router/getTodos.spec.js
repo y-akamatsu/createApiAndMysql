@@ -19,7 +19,6 @@ describe("GET /api/todos", () => {
   it("API経由で取得したデータの確認", () => {
     return requestHelper
       .requestAPI("get", "/api/todos", 200)
-      .set("Content-type", "application/json")
       .then(response => {
         const todos = response.body;
         assert.equal(Array.isArray(todos), true, "配列ではありません。");
