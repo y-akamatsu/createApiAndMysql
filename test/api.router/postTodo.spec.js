@@ -24,7 +24,6 @@ describe("POST /api/todos/1", () => {
   it("作成したデータをDBから取得できるかの確認", () => {
     return requestHelper
       .requestAPI("get", "/api/todos/" + id, 200)
-      .set("Content-type", "application/json")
       .then(response => {
         // DBの各カラムの値チェック
         assert.equal(response.body.title, "titleA", "titleの値が正しくありません。");
