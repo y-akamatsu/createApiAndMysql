@@ -72,7 +72,7 @@ module.exports = {
       res.status(200).json(todo);
     } catch (error) {
       await transaction.rollback();
-      res.status(404).json(error);
+      res.json(error);
     }
   },
   deleteTodos(req, res) {
