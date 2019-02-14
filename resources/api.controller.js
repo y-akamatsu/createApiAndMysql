@@ -10,7 +10,7 @@ const throwError = (errorMessage, errorCode) => {
 };
 
 module.exports = {
-  async getTodos(req, res) {
+  async getTodo(req, res) {
     try {
       const todos = await index.Todo.findAll({
         order: [["id", "ASC"]]
@@ -28,7 +28,7 @@ module.exports = {
     }
   },
 
-  async postTodos(req, res) {
+  async postTodo(req, res) {
     const transaction = await index.sequelize.transaction();
     try {
       const todo = await index.Todo.create(
@@ -60,7 +60,7 @@ module.exports = {
     }
   },
 
-  async putTodos(req, res) {
+  async putTodo(req, res) {
     const targetTodoId = req.params.id;
     let transaction;
     try {
