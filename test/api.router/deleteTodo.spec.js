@@ -18,6 +18,10 @@ describe("DELETE /api/todos/:id", () => {
     url = `/api/todos/${targetTodo.id}`;
   });
 
+  after(async () => {
+    await truncate();
+  });
+
   it("DB内のデータを1つ削除する", () => {
     return requestHelper
       .requestAPI("delete", url, 200)
@@ -41,9 +45,5 @@ describe("DELETE /api/todos/:id", () => {
           code: "404"
         });
       });
-  });
-
-  after(async () => {
-    await truncate();
   });
 });
