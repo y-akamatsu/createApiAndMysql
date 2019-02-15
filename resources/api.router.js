@@ -4,10 +4,10 @@ const apiController = require("./api.controller");
 
 router.route("/todos")
   .get(apiController.getTodos)
-  .post(apiController.postTodos);
+  .post(apiController.postTodo);
 router.route("/todos/:id")
   .get(apiController.getTodoById)
-  .put(apiController.putTodos)
-  .delete(apiController.deleteTodos);
+  .put(apiController.putTodo)
+  .delete(apiController.deleteTodo);
 
 module.exports = router;

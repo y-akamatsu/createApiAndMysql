@@ -2,31 +2,46 @@
 
 const index = require('../models/index');
 
+const throwError = (errorMessage, errorCode) => {
+  const error = new Error();
+  error.message = errorMessage;
+  error.code = errorCode;
+  throw error;
+};
+
 module.exports = {
   async getTodos(req, res) {
     try {
       const todos = await index.Todo.findAll({
         order: [["id", "ASC"]]
+      }).catch(error => {
+        throwError("server Error", 500);
       });
+
+      if (!todos) {
+        throwError("Not Found", 404);
+      }
+
       res.status(200).json(todos);
     } catch (error) {
-      res.json(error);
+      res.status(error.code).json(error);
     }
   },
 
-  async postTodos(req, res) {
-    let transaction;
+  async postTodo(req, res) {
+    const transaction = await index.sequelize.transaction();
     try {
-      transaction = await index.sequelize.transaction();
-
       const todo = await index.Todo.create(
         {
           title: req.body.title,
           body: req.body.body,
           completed: req.body.completed
         },
-        { transaction },
-      );
+        { transaction }
+      ).catch(error => {
+        throwError("serever Error", 500);
+      });
+
       await transaction.commit();
       res.status(200).json(todo);
     } catch (error) {
@@ -36,16 +51,26 @@ module.exports = {
   },
 
   async getTodoById(req, res) {
-    const selectId = req.params.id;
+    const targetTodoId = req.params.id;
     try {
-      const todo = await index.Todo.findById(Number(selectId));
+      const todo = await index.Todo.findById(Number(targetTodoId)).catch(
+        error => {
+          throwError("Server Error", 500);
+        }
+      );
+
+      if (!todo) {
+        throwError("Not Found", 404);
+      }
+
       res.status(200).json(todo);
     } catch (error) {
-      res.json(error);
+      res.status(error.code).json(error);
     }
   },
 
-  async putTodos(req, res) {
+
+  async putTodo(req, res) {
     const targetTodoId = req.params.id;
     let transaction;
     try {
@@ -53,19 +78,22 @@ module.exports = {
 
       const todo = await index.Todo.findById(Number(targetTodoId), {
         transaction
+      }).catch(error => {
+        throwError("server Found", 500);
       });
 
       if (!todo) {
-        const error = new Error();
-        error.message = "Not Found";
-        error.code = 404;
-        throw error;
+        throwError("Not Found", 404);
       }
 
       await todo.update({
         title: req.body.title,
         body: req.body.body,
         completed: req.body.completed
+      },
+        { transaction }
+      ).catch(error => {
+        throwError("server Error", 500);
       });
 
       await transaction.commit();
@@ -75,9 +103,30 @@ module.exports = {
       res.json(error);
     }
   },
-  deleteTodos(req, res) {
-    const id = req.params.id;
-    const data = "delete todo of id " + id + " from DB";
-    res.status(200).send(data);
+
+  async deleteTodo(req, res) {
+    const targetTodoId = req.params.id;
+    const transaction = await index.sequelize.transaction();
+    try {
+      const todo = await index.Todo.findById(Number(targetTodoId), {
+        transaction
+      }).catch(error => {
+        throwError("Server Error", 500);
+      });
+
+      if (!todo) {
+        throwError("Not Found", 404);
+      }
+
+      await todo.destroy({ transaction }).catch(error => {
+        throwError("Server Error", 500);
+      });
+
+      await transaction.commit();
+      res.status(200).json(todo);
+    } catch (error) {
+      await transaction.rollback();
+      res.status(error.code).json(error);
+    }
   }
 };

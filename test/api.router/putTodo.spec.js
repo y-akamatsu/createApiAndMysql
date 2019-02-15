@@ -18,7 +18,7 @@ describe("PUT /api/todo/:id", () => {
     url = `/api/todos/${targetTodo.id}`;
   });
   
-  it("更新したデータの確認　正常のテスト", () => {
+  it("更新したデータの確認", () => {
     return requestHelper
     .requestAPI("put", url, 200)
     .send(JSON.stringify({ title: "titleA", body: "bodyA", completed: true }))
@@ -38,7 +38,6 @@ describe("GET /api/todos/:id", () => {
   it("更新したデータをDBから取得できるかの確認", () => {
     return requestHelper
       .requestAPI("get", url, 200)
-      .set("Accept", "application/json")
       .then(response => {
         assert.deepEqual(response.body, {
           id: targetTodo.id,
