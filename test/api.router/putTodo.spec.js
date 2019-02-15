@@ -18,7 +18,7 @@ describe("PUT /api/todo/:id", () => {
     url = `/api/todos/${targetTodo.id}`;
   });
   
-  it("更新したデータの確認　正常のテスト", () => {
+  it("更新したデータの確認", () => {
     return requestHelper
     .requestAPI("put", url, 200)
     .send(JSON.stringify({ title: "titleA", body: "bodyA", completed: true }))

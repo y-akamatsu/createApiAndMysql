@@ -20,7 +20,16 @@ describe("DELETE /api/todos/:id", () => {
 
   it("DB内のデータを1つ削除する", () => {
     return requestHelper
-      .requestAPI("delete", url, 200);
+      .requestAPI("delete", url, 200)
+      .then(response => {
+        //deleteしたデータの確認
+        assert.equal(typeof response.body.id, "number", "idの型が正しくありません。");
+        assert.equal(typeof response.body.title, "string", "titleの型が正しくありません。");
+        assert.equal(typeof response.body.body, "string", "bodyの型が正しくありません。");
+        assert.equal(typeof response.body.completed, "boolean", "completedの型が正しくありません。");
+        assert.equal(typeof response.body.createdAt, "string", "createdAtの型が正しくありません。");
+        assert.equal(typeof response.body.updatedAt, "string", "updatedAtの型が正しくありません。");
+      });
   });
 
   it("削除したはずのデータがDBに存在しないかの確認", () => {
@@ -33,9 +42,7 @@ describe("DELETE /api/todos/:id", () => {
         });
       });
   });
-});
 
-describe("GET /api/todos/:id", () => {
   after(async () => {
     await truncate();
   });
