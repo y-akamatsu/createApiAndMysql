@@ -10,7 +10,7 @@ const throwError = (errorMessage, errorCode) => {
 };
 
 module.exports = {
-  async getTodo(req, res) {
+  async getTodos(req, res) {
     try {
       const todos = await index.Todo.findAll({
         order: [["id", "ASC"]]
@@ -51,14 +51,24 @@ module.exports = {
   },
 
   async getTodoById(req, res) {
-    const selectId = req.params.id;
+    const targetTodoId = req.params.id;
     try {
-      const todo = await index.Todo.findById(Number(selectId));
+      const todo = await index.Todo.findById(Number(targetTodoId)).catch(
+        error => {
+          throwError("Server Error", 500);
+        }
+      );
+
+      if (!todo) {
+        throwError("Not Found", 404);
+      }
+
       res.status(200).json(todo);
     } catch (error) {
-      res.json(error);
+      res.status(error.code).json(error);
     }
   },
+
 
   async putTodo(req, res) {
     const targetTodoId = req.params.id;

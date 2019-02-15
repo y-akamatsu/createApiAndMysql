@@ -20,21 +20,23 @@ describe("DELETE /api/todos/:id", () => {
 
   it("DB内のデータを1つ削除する", () => {
     return requestHelper
-    .requestAPI("delete", url, 200);
+      .requestAPI("delete", url, 200);
+  });
+
+  it("削除したはずのデータがDBに存在しないかの確認", () => {
+    return requestHelper
+      .requestAPI("get", url, 404)
+      .then(response => {
+        assert.deepEqual(response.body, {
+          message: "Not Found",
+          code: "404"
+        });
+      });
   });
 });
 
 describe("GET /api/todos/:id", () => {
   after(async () => {
     await truncate();
-  });
-
-  it("削除したデータがDBに存在しないかの確認", () => {
-    return requestHelper
-      .requestAPI("get", url, 200)
-      .then(response => {
-        //DB内が空になっていることをnullで確認する。
-        assert.deepEqual(response.body, null);
-      });
   });
 });
