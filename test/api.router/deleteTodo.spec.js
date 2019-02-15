@@ -18,7 +18,7 @@ describe("DELETE /api/todos/:id", () => {
     url = `/api/todos/${targetTodo.id}`;
   });
 
-  it("DB内のデータを削除する", () => {
+  it("DB内のデータを1つ削除する", () => {
     return requestHelper
     .requestAPI("delete", url, 200);
   });
@@ -29,14 +29,12 @@ describe("GET /api/todos/:id", () => {
     await truncate();
   });
 
-  it("削除したはずのデータがDBに存在しないかの確認", () => {
+  it("削除したデータがDBに存在しないかの確認", () => {
     return requestHelper
       .requestAPI("get", url, 200)
       .then(response => {
-        assert.deepEqual(response.body, {
-          message: "Not Found",
-          code: "404"
-        });
+        //DB内が空になっていることをnullで確認する。
+        assert.deepEqual(response.body, null);
       });
   });
 });

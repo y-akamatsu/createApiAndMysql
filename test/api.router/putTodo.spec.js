@@ -38,7 +38,6 @@ describe("GET /api/todos/:id", () => {
   it("更新したデータをDBから取得できるかの確認", () => {
     return requestHelper
       .requestAPI("get", url, 200)
-      .set("Accept", "application/json")
       .then(response => {
         assert.deepEqual(response.body, {
           id: targetTodo.id,
